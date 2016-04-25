@@ -1,0 +1,67 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Inscrição no: {{evento.nome}}</title>
+
+    <link href="{% static 'evento/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="container">
+        <h1>{{evento.nome}}</h1>
+        <h3>Vagas: {{evento.vagas}} vaga{{evento.vagas|pluralize}}</h3>
+        {% if msg %}
+        <div class="alert alert-warning alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>Sucesso!</strong> Inscrição Realizada!
+        </div>
+        {% endif %}
+        <form class="" action="" method="post">
+          {% csrf_token %}
+          <div class="form-group col-md-6">
+            <label for="">Nome</label>
+            {{form.nome}}
+          </div>
+          <div class="form-group col-md-6">
+            <label for="">Email</label>
+            {{form.email}}
+          </div>
+          <div class="form-group col-md-6">
+            <label for="">Cpf</label>
+            {{form.cpf}}
+          </div>
+          <div class="form-group col-md-6">
+            <label for="">Gênero</label>
+            {{form.genero}}
+          </div>
+          <div class="form-group col-md-6">
+            <label for="">Telefone</label>
+            {{form.telefone}}
+          </div>
+          <div class="form-group col-md-6">
+            <label for="">Idade</label>
+            {{form.idade}}
+          </div>
+          <div class="form-group col-md-6">
+            <label for="">Cidade</label>
+            {{form.cidade}}
+          </div>
+          <div class="form-group col-md-6">
+            <label for="">Estado</label>
+            {{form.estado}}
+          </div>
+          <div class="col-md-12 col-md-6">
+            {% if evento.vagas > evento.inscricao_set.all.count %}
+              <input type="submit" value="FAZER INSCRIÇÃO" class="btn btn-success"/>
+            {% else %}
+              <a href="#" class="btn btn-danger">LOTADO!</a>
+            {% endif %}
+          </div>
+        </form>
+    </div>
+
+  </body>
+</html>
